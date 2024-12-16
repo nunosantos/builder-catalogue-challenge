@@ -7,6 +7,6 @@ public class Set
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string SetNumber { get; set; }
-    public List<Piece> Part { get; set; }
+    public List<Piece> Pieces { get; set; }
     public int TotalPieces { get; set; }
 }

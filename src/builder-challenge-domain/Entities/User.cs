@@ -2,7 +2,7 @@ using System;
 
 namespace builder_challenge_domain.Entities;
 
-public record User
+public class User
 {
     public Guid Id { get; set; }
     public string Username { get; set; }

@@ -7,43 +7,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3541A44D-BB0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-api", "src\builder-challenge-api\builder-challenge-api.csproj", "{71DEE461-F578-42DD-B241-D6214EC4309D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-application", "src\builder-challenge-application\builder-challenge-application.csproj", "{1E592CE6-3CD3-423E-B0FB-286D43DA94A1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-domain", "src\builder-challenge-domain\builder-challenge-domain.csproj", "{A0DE0232-1EF9-4E30-BB2B-A059DD3EB4EF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-infrastructure", "src\builder-challenge-infrastructure\builder-challenge-infrastructure.csproj", "{8875D177-FF48-406F-ACFE-4DF463006A30}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8687C5D8-4478-4061-9C17-B8B9AF599EB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-unittests", "tests\builder-challenge-unittests\builder-challenge-unittests.csproj", "{1CE68C08-3B1E-4BCC-9B10-C3E80444D1A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-integrationtests", "tests\builder-challenge-integrationtests\builder-challenge-integrationtests.csproj", "{D6D33480-9435-4CDB-90EF-183555E1271F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-infrastructure", "src\builder-challenge-infrastructure\builder-challenge-infrastructure.csproj", "{F10785A8-266F-40DD-A47B-D31943696153}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-application", "src\builder-challenge-application\builder-challenge-application.csproj", "{73513D45-63B9-4E97-B87D-7525202E8B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "builder-challenge-domain", "src\builder-challenge-domain\builder-challenge-domain.csproj", "{78053D4D-717F-45A0-88E4-1281691B764E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{71DEE461-F578-42DD-B241-D6214EC4309D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71DEE461-F578-42DD-B241-D6214EC4309D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DEE461-F578-42DD-B241-D6214EC4309D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71DEE461-F578-42DD-B241-D6214EC4309D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E592CE6-3CD3-423E-B0FB-286D43DA94A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E592CE6-3CD3-423E-B0FB-286D43DA94A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E592CE6-3CD3-423E-B0FB-286D43DA94A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E592CE6-3CD3-423E-B0FB-286D43DA94A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0DE0232-1EF9-4E30-BB2B-A059DD3EB4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0DE0232-1EF9-4E30-BB2B-A059DD3EB4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0DE0232-1EF9-4E30-BB2B-A059DD3EB4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0DE0232-1EF9-4E30-BB2B-A059DD3EB4EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8875D177-FF48-406F-ACFE-4DF463006A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8875D177-FF48-406F-ACFE-4DF463006A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8875D177-FF48-406F-ACFE-4DF463006A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8875D177-FF48-406F-ACFE-4DF463006A30}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CE68C08-3B1E-4BCC-9B10-C3E80444D1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CE68C08-3B1E-4BCC-9B10-C3E80444D1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CE68C08-3B1E-4BCC-9B10-C3E80444D1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -52,13 +37,28 @@ Global
 		{D6D33480-9435-4CDB-90EF-183555E1271F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6D33480-9435-4CDB-90EF-183555E1271F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6D33480-9435-4CDB-90EF-183555E1271F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10785A8-266F-40DD-A47B-D31943696153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10785A8-266F-40DD-A47B-D31943696153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10785A8-266F-40DD-A47B-D31943696153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10785A8-266F-40DD-A47B-D31943696153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73513D45-63B9-4E97-B87D-7525202E8B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73513D45-63B9-4E97-B87D-7525202E8B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73513D45-63B9-4E97-B87D-7525202E8B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73513D45-63B9-4E97-B87D-7525202E8B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78053D4D-717F-45A0-88E4-1281691B764E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78053D4D-717F-45A0-88E4-1281691B764E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78053D4D-717F-45A0-88E4-1281691B764E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78053D4D-717F-45A0-88E4-1281691B764E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{71DEE461-F578-42DD-B241-D6214EC4309D} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
-		{1E592CE6-3CD3-423E-B0FB-286D43DA94A1} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
-		{A0DE0232-1EF9-4E30-BB2B-A059DD3EB4EF} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
-		{8875D177-FF48-406F-ACFE-4DF463006A30} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
 		{1CE68C08-3B1E-4BCC-9B10-C3E80444D1A2} = {8687C5D8-4478-4061-9C17-B8B9AF599EB1}
 		{D6D33480-9435-4CDB-90EF-183555E1271F} = {8687C5D8-4478-4061-9C17-B8B9AF599EB1}
+		{F10785A8-266F-40DD-A47B-D31943696153} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
+		{73513D45-63B9-4E97-B87D-7525202E8B2A} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
+		{78053D4D-717F-45A0-88E4-1281691B764E} = {3541A44D-BB0A-47D8-82D2-AC8441DCA53B}
 	EndGlobalSection
 EndGlobal
