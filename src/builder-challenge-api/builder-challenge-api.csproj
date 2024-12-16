@@ -7,4 +7,17 @@
     <RootNamespace>builder_challenge_api</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Endpoints\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\builder-challenge-utilities\builder-challenge-utilities.csproj" />
+    <ProjectReference Include="..\builder-challenge-application\builder-challenge-application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
 </Project>
