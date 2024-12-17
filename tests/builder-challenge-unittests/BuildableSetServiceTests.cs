@@ -19,7 +19,7 @@ public class BuildableSetServiceTests
             SetNumber = "12345",
             Pieces = new List<Piece>
             {
-                new Piece
+                new()
                 {
                     Part = new Part { DesignID = "3001", Material = 3, PartType = "rigid" },
                     Quantity = 5
@@ -35,12 +35,12 @@ public class BuildableSetServiceTests
             BrickCount = 100,
             Collection = new List<UserCollectionPiece>
             {
-                new UserCollectionPiece
+                new()
                 {
                     PieceId = "3001",
                     Variants = new List<PieceVariant>
                     {
-                        new PieceVariant { Color = 3, Count = 5 } // exact match
+                        new() { Color = 3, Count = 5 } // exact match
                     }
                 }
             }
@@ -49,9 +49,9 @@ public class BuildableSetServiceTests
         var setServiceMock = new Mock<ISetService>();
         var service = new BuildableSetService(setServiceMock.Object);
         // Act
-        
+
         var canBuild = service.CanUserBuildSet(user, set);
-    
+
         // Assert
         canBuild.Should().BeTrue();
     }
@@ -67,7 +67,7 @@ public class BuildableSetServiceTests
             SetNumber = "67890",
             Pieces = new List<Piece>
             {
-                new Piece
+                new()
                 {
                     Part = new Part { DesignID = "3001", Material = 2, PartType = "rigid" },
                     Quantity = 4
@@ -79,12 +79,12 @@ public class BuildableSetServiceTests
         {
             Collection = new List<UserCollectionPiece>
             {
-                new UserCollectionPiece
+                new()
                 {
                     PieceId = "3001",
                     Variants = new List<PieceVariant>
                     {
-                        new PieceVariant { Color = 2, Count = 10 } // more than needed
+                        new() { Color = 2, Count = 10 } // more than needed
                     }
                 }
             }
@@ -108,7 +108,7 @@ public class BuildableSetServiceTests
         {
             Pieces = new List<Piece>
             {
-                new Piece
+                new()
                 {
                     Part = new Part { DesignID = "3005", Material = 5, PartType = "rigid" },
                     Quantity = 10
@@ -120,12 +120,12 @@ public class BuildableSetServiceTests
         {
             Collection = new List<UserCollectionPiece>
             {
-                new UserCollectionPiece
+                new()
                 {
                     PieceId = "3005",
                     Variants = new List<PieceVariant>
                     {
-                        new PieceVariant { Color = 5, Count = 9 } // one short
+                        new() { Color = 5, Count = 9 } // one short
                     }
                 }
             }
@@ -149,7 +149,7 @@ public class BuildableSetServiceTests
         {
             Pieces = new List<Piece>
             {
-                new Piece
+                new()
                 {
                     Part = new Part { DesignID = "9999", Material = 4, PartType = "rigid" },
                     Quantity = 2
@@ -162,12 +162,12 @@ public class BuildableSetServiceTests
             Collection = new List<UserCollectionPiece>
             {
                 // No piece with ID 9999
-                new UserCollectionPiece
+                new()
                 {
                     PieceId = "3001",
                     Variants = new List<PieceVariant>
                     {
-                        new PieceVariant { Color = 4, Count = 10 }
+                        new() { Color = 4, Count = 10 }
                     }
                 }
             }
@@ -191,7 +191,7 @@ public class BuildableSetServiceTests
         {
             Pieces = new List<Piece>
             {
-                new Piece
+                new()
                 {
                     Part = new Part { DesignID = "3001", Material = 3, PartType = "rigid" },
                     Quantity = 5
@@ -204,12 +204,12 @@ public class BuildableSetServiceTests
             Collection = new List<UserCollectionPiece>
             {
                 // User has the piece but in a different color (material)
-                new UserCollectionPiece
+                new()
                 {
                     PieceId = "3001",
                     Variants = new List<PieceVariant>
                     {
-                        new PieceVariant { Color = 2, Count = 10 }
+                        new() { Color = 2, Count = 10 }
                     }
                 }
             }
@@ -229,74 +229,77 @@ public class BuildableSetServiceTests
     public void CanBuildMultipleSets_ReturnsTrueForAllApplicableSets()
     {
         // Arrange
-            var set1 = new Set
+        var set1 = new Set
+        {
+            Id = Guid.NewGuid(),
+            Name = "Set1",
+            Pieces = new List<Piece>
             {
-                Id = Guid.NewGuid(),
-                Name = "Set1",
-                Pieces = new List<Piece>
-                {
-                    new Piece { Part = new Part { DesignID = "3001", Material = 2, PartType = "rigid" }, Quantity = 4 }
-                }
-            };
+                new() { Part = new Part { DesignID = "3001", Material = 2, PartType = "rigid" }, Quantity = 4 }
+            }
+        };
 
-            var set2 = new Set
+        var set2 = new Set
+        {
+            Id = Guid.NewGuid(),
+            Name = "Set2",
+            Pieces = new List<Piece>
             {
-                Id = Guid.NewGuid(),
-                Name = "Set2",
-                Pieces = new List<Piece>
-                {
-                    new Piece { Part = new Part { DesignID = "3005", Material = 3, PartType = "rigid" }, Quantity = 3 }
-                }
-            };
+                new() { Part = new Part { DesignID = "3005", Material = 3, PartType = "rigid" }, Quantity = 3 }
+            }
+        };
 
-            var set3 = new Set
+        var set3 = new Set
+        {
+            Id = Guid.NewGuid(),
+            Name = "Set3",
+            Pieces = new List<Piece>
             {
-                Id = Guid.NewGuid(),
-                Name = "Set3",
-                Pieces = new List<Piece>
+                new() { Part = new Part { DesignID = "3001", Material = 2, PartType = "rigid" }, Quantity = 4 },
+                new() { Part = new Part { DesignID = "3005", Material = 3, PartType = "rigid" }, Quantity = 3 },
+                new()
                 {
-                    new Piece { Part = new Part { DesignID = "3001", Material = 2, PartType = "rigid" }, Quantity = 4 },
-                    new Piece { Part = new Part { DesignID = "3005", Material = 3, PartType = "rigid" }, Quantity = 3 },
-                    new Piece { Part = new Part { DesignID = "9999", Material = 1, PartType = "rigid" }, Quantity = 1 } // not available
-                }
-            };
+                    Part = new Part { DesignID = "9999", Material = 1, PartType = "rigid" }, Quantity = 1
+                } // not available
+            }
+        };
 
-            var user = new User
+        var user = new User
+        {
+            Collection = new List<UserCollectionPiece>
             {
-                Collection = new List<UserCollectionPiece>
+                new()
                 {
-                    new UserCollectionPiece
+                    PieceId = "3001",
+                    Variants = new List<PieceVariant>
                     {
-                        PieceId = "3001",
-                        Variants = new List<PieceVariant>
-                        {
-                            new PieceVariant { Color = 2, Count = 10 }
-                        }
-                    },
-                    new UserCollectionPiece
+                        new() { Color = 2, Count = 10 }
+                    }
+                },
+                new()
+                {
+                    PieceId = "3005",
+                    Variants = new List<PieceVariant>
                     {
-                        PieceId = "3005",
-                        Variants = new List<PieceVariant>
-                        {
-                            new PieceVariant { Color = 3, Count = 5 }
-                        }
+                        new() { Color = 3, Count = 5 }
                     }
                 }
-            };
+            }
+        };
 
-            var sets = new List<Set> { set1, set2, set3 };
+        var sets = new List<Set> { set1, set2, set3 };
 
-            var setServiceMock = new Mock<ISetService>();
-            setServiceMock.Setup(s => s.GetAllSets()).Returns(sets);
+        var setServiceMock = new Mock<ISetService>();
+        setServiceMock.Setup(s => s.GetAllSets()).Returns(sets);
 
-            var service = new BuildableSetService(setServiceMock.Object);
+        var service = new BuildableSetService(setServiceMock.Object);
 
-            // Act
-            var buildableSets = service.GetBuildableSetsForUser(user);
+        // Act
+        var buildableSets = service.GetBuildableSetsForUser(user);
 
-            // Assert
-            buildableSets.Should().Contain(set1);
-            buildableSets.Should().Contain(set2);
-            buildableSets.Should().NotContain(set3);
+        // Assert
+        buildableSets.Should().Contain(set1);
+        buildableSets.Should().Contain(set2);
+        buildableSets.Should().NotContain(set3);
     }
 }
