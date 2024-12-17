@@ -1,33 +1,74 @@
-var builder = WebApplication.CreateBuilder(args);
+using builder_challenge_application.Interfaces;
+using builder_challenge_application.Services;
+using builder_challenge_domain.Interfaces;
+using builder_challenge_infrastructure;
 
-builder.Services.AddControllers();
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
 
-// builder.Host.UseSerilog((context, _, loggerConfiguration) =>
-// {
-//     loggerConfiguration
-//         .ReadFrom.Configuration(context.Configuration)
-//         .Enrich.WithProperty("Application", "order-svc")
-//         .Enrich.WithProperty("Environment", "Dev")
-//         .WriteTo.Console(new RenderedCompactJsonFormatter())
-//         .WriteTo.GrafanaLoki("http://loki:3100");
-// });
+    builder.Configuration.AddJsonFile("appsettings.json", false, true)
+        .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+        .AddEnvironmentVariables();
 
-// builder.Services.UseHttpClientMetrics();
+    builder.Services.AddControllers();
 
-builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddScoped<IBuildableSetService, BuildableSetService>();
 
-builder.Services.AddSwaggerGen();
+    builder.Services.AddScoped<IUserService, UserService>();
 
-var app = builder.Build();
+    builder.Services.AddScoped<IColourService, ColourService>();
 
-app.UseSwagger();
+    builder.Services.AddScoped<ISetService, SetService>();
 
-app.UseSwaggerUI();
+    var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
 
-app.UseRouting();
+    if (string.IsNullOrEmpty(baseUrl))
+        throw new InvalidOperationException(
+            "API base URL is not configured. Please set 'ApiSettings:BaseUrl' in appsettings.json.");
 
-app.MapControllers();
+    // Register ColourRepository with HttpClient
+    builder.Services.AddHttpClient<IColourRepository, ColourRepository>(client =>
+    {
+        client.BaseAddress = new Uri(baseUrl);
+        client.DefaultRequestHeaders.Add("Accept", "application/json");
+    });
 
-await app.RunAsync();
+// Register UserRepository with HttpClient
+    builder.Services.AddHttpClient<IUserRepository, UserRepository>(client =>
+    {
+        client.BaseAddress = new Uri(baseUrl);
+        client.DefaultRequestHeaders.Add("Accept", "application/json");
+    });
 
-public partial class Program {}
+// Register SetRepository with HttpClient
+    builder.Services.AddHttpClient<ISetRepository, SetRepository>(client =>
+    {
+        client.BaseAddress = new Uri(baseUrl);
+        client.DefaultRequestHeaders.Add("Accept", "application/json");
+    });
+
+    builder.Services.AddEndpointsApiExplorer();
+
+    builder.Services.AddSwaggerGen();
+
+    var app = builder.Build();
+
+    app.UseSwagger();
+
+    app.UseSwaggerUI();
+
+    app.UseRouting();
+
+    app.MapControllers();
+
+    await app.RunAsync();
+}
+catch (Exception ex)
+{
+    //do something with the exception like logging
+}
+
+public partial class Program
+{
+}

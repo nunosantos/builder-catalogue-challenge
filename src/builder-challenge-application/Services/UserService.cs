@@ -6,11 +6,11 @@ namespace builder_challenge_application.Services;
 
 public class UserService(IUserRepository userRepository) : IUserService
 {
-    public User GetUserDetails(string username)
+    public async Task<User> GetUserByUsernameAsync(string username)
     {
         try
         {
-            return userRepository.GetUserDetails(username);
+            return await userRepository.GetUserByUsernameAsync(username).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -18,11 +18,23 @@ public class UserService(IUserRepository userRepository) : IUserService
         }
     }
 
-    public IEnumerable<User> GetUsers()
+    public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
         try
         {
-            return userRepository.GetUsers();
+            return await userRepository.GetAllUsersAsync().ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("An error occurred while fetching the set", ex);
+        }
+    }
+
+    public async Task<User> GetUserByIdAsync(Guid userResponseId)
+    {
+        try
+        {
+            return await userRepository.GetUserByIdAsync(userResponseId).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

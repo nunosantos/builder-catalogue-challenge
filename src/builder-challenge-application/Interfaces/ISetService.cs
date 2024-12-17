@@ -4,6 +4,6 @@ namespace builder_challenge_application.Interfaces;
 
 public interface ISetService
 {
-    Set GetSetDetails(string setName);
-    IEnumerable<Set> GetAllSets();
+    Task<Set> GetSetDetails(Guid setId);
+    Task<IEnumerable<Set>> GetAllSets();
 }

@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\builder-challenge-utilities\builder-challenge-utilities.csproj" />
     <ProjectReference Include="..\builder-challenge-application\builder-challenge-application.csproj" />
+    <ProjectReference Include="..\builder-challenge-infrastructure\builder-challenge-infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

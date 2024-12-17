@@ -4,5 +4,5 @@ namespace builder_challenge_domain.Interfaces;
 
 public interface IColourRepository
 {
-    IEnumerable<Colour> GetColours();
+    Task<IEnumerable<Colour>> GetColours();
 }

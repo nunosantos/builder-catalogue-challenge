@@ -11,7 +11,7 @@ public class BuildableSetService(ISetService setService) : IBuildableSetService
         {
             if (user == null || set == null) return false;
 
-            var userInventory = new Dictionary<(string designId, int material), int>();
+            var userInventory = new Dictionary<(string designId, string material), int>();
 
             foreach (var userPiece in user
                          .Collection
@@ -28,25 +28,43 @@ public class BuildableSetService(ISetService setService) : IBuildableSetService
             throw;
         }
     }
-
-    private static bool HasSufficientPieces(Piece requiredPiece, Dictionary<(string designId, int material), int> userInventory)
+    
+    public async Task<IEnumerable<Set>> GetBuildableSetsForUser(User user)
     {
-        var key = (requiredPiece.Part.DesignID, requiredPiece.Part.Material);
+        var allSets = await setService.GetAllSets().ConfigureAwait(false);
+        
+        var buildableSets = new List<Set>();
 
-        if (!userInventory.TryGetValue(key, out var ownedCount) ||
-            ownedCount < requiredPiece.Quantity)
-            return false;
-        return true;
+        foreach (var set in allSets)
+        {
+            await AddBuildableSetIfEligibleAsync(user, set, buildableSets);
+        }
+        
+        return buildableSets;
     }
 
-    public IEnumerable<Set> GetBuildableSetsForUser(User user)
+    private async Task AddBuildableSetIfEligibleAsync(User user, Set set, List<Set> buildableSets)
     {
-        var allSets = setService.GetAllSets();
-        return allSets.Where(s => CanUserBuildSet(user, s));
+        var detailedSet = await setService.GetSetDetails(set.Id).ConfigureAwait(false);
+
+        if (CanUserBuildSet(user, detailedSet))
+        {
+            buildableSets.Add(detailedSet);
+        }
+    }
+
+    private static bool HasSufficientPieces(Piece requiredPiece, Dictionary<(string designId, string material), int> userInventory)
+    {
+        var key = (requiredPiece.Part.DesignID, requiredPiece.Part.Material.ToString());
+        
+        var hasSufficientPieces = userInventory.TryGetValue(key, out var ownedCount) &&
+                                  ownedCount >= requiredPiece.Quantity;
+        
+        return hasSufficientPieces;
     }
 
     private static void AddUserPieceToInventory(UserCollectionPiece userPiece, PieceVariant variant,
-        Dictionary<(string designId, int material), int> userInventory)
+        Dictionary<(string designId, string material), int> userInventory)
     {
         var key = (userPiece.PieceId, variant.Color);
         if (userInventory.ContainsKey(key))

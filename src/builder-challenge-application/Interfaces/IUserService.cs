@@ -4,7 +4,8 @@ namespace builder_challenge_application.Interfaces;
 
 public interface IUserService
 {
-    User GetUserDetails(string username);
-    IEnumerable<User> GetUsers();
-    
+    Task<User> GetUserByUsernameAsync(string username);
+    Task<IEnumerable<User>> GetAllUsersAsync();
+
+    Task<User> GetUserByIdAsync(Guid userResponseId);
 }

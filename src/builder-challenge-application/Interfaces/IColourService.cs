@@ -4,5 +4,5 @@ namespace builder_challenge_application.Interfaces;
 
 public interface IColourService
 {
-    IEnumerable<Colour> GetColourDetails();
+    Task<IEnumerable<Colour>> GetColourDetails();
 }

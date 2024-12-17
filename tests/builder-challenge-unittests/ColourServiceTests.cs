@@ -9,11 +9,11 @@ namespace builder_challenge_unittests;
 public class ColourServiceTests
 {
     [Fact]
-    public void GetColourDetails_ReturnsColours_WhenSetNameIsValid()
+    public async Task GetColourDetails_ReturnsColours_WhenSetNameIsValid()
     {
         // Arrange
         var colourRepository = new Mock<IColourRepository>();
-        colourRepository.Setup(c => c.GetColours()).Returns(new List<Colour>
+        colourRepository.Setup(c => c.GetColours()).ReturnsAsync(new List<Colour>
         {
             new Colour { Name = "Red", Code = 1 },
             new Colour { Name = "Green", Code = 2 },
@@ -23,7 +23,7 @@ public class ColourServiceTests
         var colourService = new ColourService(colourRepository.Object);
 
         // Act
-        var colours = colourService.GetColourDetails();
+        var colours = await colourService.GetColourDetails().ConfigureAwait(false);
 
         // Assert
         colours.Should().NotBeNull();
@@ -31,7 +31,7 @@ public class ColourServiceTests
     }
 
     [Fact]
-    public void GetColourDetails_ThrowsException_WhenSetNameIsInvalid()
+    public async Task GetColourDetails_ThrowsException_WhenSetNameIsInvalid()
     {
         // Arrange
         var colourRepository = new Mock<IColourRepository>();
@@ -39,6 +39,6 @@ public class ColourServiceTests
         var colourService = new ColourService(colourRepository.Object);
 
         // Act & Assert
-        Assert.Throws<Exception>(() => colourService.GetColourDetails());
+        await Assert.ThrowsAsync<Exception>(async () => await colourService.GetColourDetails());
     }
 }

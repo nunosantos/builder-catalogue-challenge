@@ -6,11 +6,11 @@ namespace builder_challenge_application.Services;
 
 public class SetService(ISetRepository setRepository) : ISetService
 {
-    public Set GetSetDetails(string setName)
+    public async Task<Set> GetSetDetails(Guid setId)
     {
         try
         {
-            return setRepository.GetSetDetails(setName);
+            return await setRepository.GetSetByIdAsync(setId);
         }
         catch (Exception ex)
         {
@@ -18,8 +18,16 @@ public class SetService(ISetRepository setRepository) : ISetService
         }
     }
 
-    public IEnumerable<Set> GetAllSets()
+    public async Task<IEnumerable<Set>> GetAllSets()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await setRepository.GetAllSetsAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e); //or logging of some sort
+            throw;
+        }
     }
 }

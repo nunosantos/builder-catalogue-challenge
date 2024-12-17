@@ -9,18 +9,18 @@ namespace builder_challenge_unittests;
 public class UserServiceTests
 {
     [Fact]
-    public void GetUsers_ShouldReturnListOfUsers()
+    public async Task GetUsers_ShouldReturnListOfUsers()
     {
         // Act
         var mockUserRepository = new Mock<IUserRepository>();
-        mockUserRepository.Setup(x => x.GetUsers()).Returns(new List<User>
+        mockUserRepository.Setup(x => x.GetAllUsersAsync()).ReturnsAsync(new List<User>
         {
             new User { Username = "user1" },
             new User { Username = "user2" }
         });
         var userService = new UserService(mockUserRepository.Object);
         
-        var users = userService.GetUsers();
+        var users = await userService.GetAllUsersAsync();
 
         // Assert
         users.Should().NotBeNull();
@@ -28,11 +28,11 @@ public class UserServiceTests
     }
 
     [Fact]
-    public void GetUserDetails_WithValidUsername_ShouldReturnUser()
+    public async Task GetUserDetails_WithValidUsername_ShouldReturnUser()
     {
         // Arrange
         var mockUserRepository = new Mock<IUserRepository>();
-        mockUserRepository.Setup(x => x.GetUserDetails(It.IsAny<string>())).Returns(new User
+        mockUserRepository.Setup(x => x.GetUserByUsernameAsync(It.IsAny<string>())).ReturnsAsync(new User
         {
             Username = "user1",
             Location = "Location1",
@@ -42,7 +42,7 @@ public class UserServiceTests
         var username = "user1";
 
         // Act
-        var user = userService.GetUserDetails(username);
+        var user = await userService.GetUserByUsernameAsync(username);
 
         // Assert
         user.Should().NotBeNull();
@@ -52,15 +52,15 @@ public class UserServiceTests
     }
 
     [Fact]
-    public void GetUserDetails_WithInvalidUsername_ShouldThrowException()
+    public async Task GetUserDetails_WithInvalidUsername_ShouldThrowException()
     {
         // Arrange
         var mockUserRepository = new Mock<IUserRepository>();
-        mockUserRepository.Setup(u => u.GetUserDetails(It.IsAny<string>())).Throws<Exception>();
+        mockUserRepository.Setup(u => u.GetUserByUsernameAsync(It.IsAny<string>())).Throws<Exception>();
         var userService = new UserService(mockUserRepository.Object);
         var username = "invalid_user";
 
         // Assert is handled by ExpectedException
-        Assert.Throws<Exception>(() => userService.GetUserDetails(username));
+        await Assert.ThrowsAsync<Exception>(async () => await userService.GetUserByUsernameAsync(username));
     }
 }

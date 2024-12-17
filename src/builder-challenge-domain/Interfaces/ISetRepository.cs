@@ -4,5 +4,9 @@ namespace builder_challenge_domain.Interfaces;
 
 public interface ISetRepository
 {
-    Set GetSetDetails(string setName);
+    Task<List<Set>> GetAllSetsAsync();
+
+    Task<Set> GetSetByNameAsync(string name);
+
+    Task<Set> GetSetByIdAsync(Guid id);
 }

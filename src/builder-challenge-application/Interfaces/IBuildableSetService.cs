@@ -5,5 +5,5 @@ namespace builder_challenge_application.Interfaces;
 public interface IBuildableSetService
 {
     bool CanUserBuildSet(User user, Set set);
-    IEnumerable<Set> GetBuildableSetsForUser(User user);
+    Task<IEnumerable<Set>> GetBuildableSetsForUser(User user);
 }

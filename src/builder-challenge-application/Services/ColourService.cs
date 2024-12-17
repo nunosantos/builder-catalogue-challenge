@@ -6,11 +6,11 @@ namespace builder_challenge_application.Services;
 
 public class ColourService(IColourRepository colourRepository) : IColourService
 {
-    public IEnumerable<Colour> GetColourDetails()
+    public async Task<IEnumerable<Colour>> GetColourDetails()
     {
         try
         {
-            return colourRepository.GetColours();
+            return await colourRepository.GetColours();
         }
         catch (Exception ex)
         {
