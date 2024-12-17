@@ -8,4 +8,5 @@ public class User
     public string Username { get; set; }
     public string Location { get; set; }
     public int BrickCount { get; set; }
+    public List<UserCollectionPiece> Collection { get; set; }
 }

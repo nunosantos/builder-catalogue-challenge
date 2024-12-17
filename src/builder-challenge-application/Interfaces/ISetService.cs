@@ -1,6 +1,9 @@
+using builder_challenge_domain.Entities;
+
 namespace builder_challenge_application.Interfaces;
 
 public interface ISetService
 {
-    CatalogSet GetSetDetails(string setName)
+    Set GetSetDetails(string setName);
+    IEnumerable<Set> GetAllSets();
 }
